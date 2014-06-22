@@ -2,10 +2,10 @@
 require "rubygems"
 require "IRC"
 require "duck_duck_go"
+require "google-search"
 
+bot = IRC.new("botter", "irc.rrerr.net", "6667", "Botter IRC Bot")
 ddg = DuckDuckGo.new
-
-bot = IRC.new("botter2", "irc.rrerr.net", "6667", "Botter IRC Bot")
 
 IRCEvent.add_callback('endofmotd') do |event|
   bot.add_channel('#lobby')
@@ -32,7 +32,15 @@ IRCEvent.add_callback('privmsg') do |event|
     else
       bot.send_message '#lobby', "Nothing was found :("
     end
-
+  elsif /^!g /.match event.message
+    search_args = event.message.gsub "!g ", ""
+    bot.send_message '#lobby', "Searching \x0312G\x034o\x038o\x0312g\x039l\x034e\x0f for: #{search_args}" # \x03 - colours in IRC ; \x0f - reset formatting
+    Google::Search::Web.new(query: search_args).each do |result|
+      break if result.index > 2
+      bot.send_message '#lobby', "\x02#{result.index + 1}. #{result.title}"
+      bot.send_message '#lobby', "   #{result.content}"
+      bot.send_message '#lobby', "   \x039#{result.uri}"
+    end
   end
  # bot.send_message '#lobby', event.message
 end
