@@ -12,8 +12,8 @@ IRCEvent.add_callback('endofmotd') do |event|
 end
 
 IRCEvent.add_callback('privmsg') do |event|
-  if /^!search /.match event.message
-    search_args = event.message.gsub "!search ", ""
+  if /^!d/.match event.message
+    search_args = event.message.gsub "!d ", ""
     bot.send_message '#lobby', "Searching for: #{search_args}"
   	zci = ddg.zeroclickinfo search_args
 
