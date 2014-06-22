@@ -38,7 +38,7 @@ IRCEvent.add_callback('privmsg') do |event|
     Google::Search::Web.new(query: search_args).each do |result|
       break if result.index > 2
       bot.send_message '#lobby', "\x02#{result.index + 1}. #{result.title}"
-      bot.send_message '#lobby', "   #{result.content}"
+      bot.send_message '#lobby', "   #{result.content.gsub /<\/?b>/, "\x02"}"
       bot.send_message '#lobby', "   \x039#{result.uri}"
     end
   end
