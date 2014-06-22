@@ -14,7 +14,7 @@ end
 IRCEvent.add_callback('privmsg') do |event|
   if /^!d/.match event.message
     search_args = event.message.gsub "!d ", ""
-    bot.send_message '#lobby', "Searching for: #{search_args}"
+    bot.send_message '#lobby', "Searching \x034DuckDuckGo\x0f for: #{search_args}"
   	zci = ddg.zeroclickinfo search_args
 
     case zci.type # see https://github.com/andrewrjones/ruby-duck-duck-go/blob/master/lib/duck_duck_go/zero_click_info.rb#L11-L15
