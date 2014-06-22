@@ -1,0 +1,10 @@
+bot:
+  server: "irc.rrerr.net"
+  port: 6667
+
+  nickname: "botter"
+  realname: "Botter IRC Bot"
+
+  channels:
+    - "#lobby"
+    - "#test"

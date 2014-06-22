@@ -4,11 +4,15 @@ require "IRC"
 require "duck_duck_go"
 require "google-search"
 
-bot = IRC.new("botter", "irc.rrerr.net", "6667", "Botter IRC Bot")
+APP_CONFIG = YAML.load_file(File.expand_path("config.yml", File.dirname(__FILE__)))["bot"]
+
+bot = IRC.new(APP_CONFIG["nickname"], APP_CONFIG["server"], APP_CONFIG["port"], APP_CONFIG["realname"])
 ddg = DuckDuckGo.new
 
 IRCEvent.add_callback('endofmotd') do |event|
-  bot.add_channel('#lobby')
+  APP_CONFIG["channels"].each do |chan|
+    bot.add_channel(chan)
+  end
 end
 
 IRCEvent.add_callback('privmsg') do |event|
