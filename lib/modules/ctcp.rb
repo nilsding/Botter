@@ -1,7 +1,5 @@
 require "bottermodule"
 
-require "google-search"
-
 class BotterModule::Ctcp < BotterModule
   
   def initialize
