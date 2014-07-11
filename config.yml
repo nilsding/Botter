@@ -14,7 +14,7 @@ bot:
       - ctcp
       - ddg
       - google
-    
+      - youtube
     config:
       ctcp:
         version: true    # Reply to CTCP VERSION
@@ -25,4 +25,8 @@ bot:
       google:
         command: "!g"
         searching_for_str: "Searching \x0312G\x034o\x038o\x0312g\x039l\x034e\x0f for: %arg"
+      youtube:
+        banner: "[\x02You\x034Tube\x0f]"
+        enable_not_found_message: false    # Enable "Video not found" message (which can get quite spammy)
+        not_found_str: "Video not found ;_;"
   
