@@ -7,8 +7,12 @@ GEM
       json
     google-search (1.0.3)
       json
+    httparty (0.13.1)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     httpclient (2.4.0)
     json (1.8.1)
+    multi_xml (0.5.5)
 
 PLATFORMS
   ruby
@@ -18,3 +22,4 @@ DEPENDENCIES
   Ruby-IRC
   duck-duck-go
   google-search
+  httparty
