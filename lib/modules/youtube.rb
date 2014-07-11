@@ -1,6 +1,5 @@
 require "bottermodule"
 
-require "pp"
 require "nokogiri"
 require "httparty"
 
