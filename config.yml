@@ -8,3 +8,21 @@ bot:
   channels:
     - "#lobby"
     - "#test"
+  
+  modules:
+    enabled:
+      - ctcp
+      - ddg
+      - google
+    
+    config:
+      ctcp:
+        version: true    # Reply to CTCP VERSION
+      ddg:
+        command: "!e"
+        searching_for_str: "Searching \x034DuckDuckGo\x0f for: %arg"
+        no_results_str: "Nothing was found :("
+      google:
+        command: "!h"
+        searching_for_str: "Searching \x0312G\x034o\x038o\x0312g\x039l\x034e\x0f for: %arg"
+  
