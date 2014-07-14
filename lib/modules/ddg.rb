@@ -13,7 +13,7 @@ class BotterModule::DDGZeroClickInfo < BotterModule
   # PRIVMSG event for DuckDuckGo ZeroClickInfo
   def privmsg(bot, event)
     if /^#{@config["command"]} /.match event.message
-      search_args = event.message.gsub "#{@config["command"]} ", ""
+      search_args = event.message.gsub /^#{@config["command"]} /, ""
       bot.send_message bot.to(event), @config["searching_for_str"].gsub(/%arg/i, search_args)
       zci = @ddg.zeroclickinfo search_args
 
