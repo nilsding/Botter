@@ -32,3 +32,5 @@ bot:
         banner: "[\x02You\x034Tube\x0f]"
         enable_not_found_message: false    # Enable "Video not found" message (which can get quite spammy)
         not_found_str: "Video not found ;_;"
+      logger:
+        log_dir: # TODO
