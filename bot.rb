@@ -11,6 +11,7 @@ $modules = []
 
 APP_CONFIG["modules"]["enabled"].each do |mod|
   require "modules/#{mod}"
+  puts "--> #{$modules[-1][:name]} by #{$modules[-1][:authors].join ", "}" if APP_CONFIG["verbose"]
 end
 
 ##
@@ -36,6 +37,7 @@ IRCEvent.add_callback('privmsg') do |event|
   end
 end
 
+puts "connecting to #{bot.server}/#{bot.port}..." if APP_CONFIG["verbose"]
 bot.connect
 
 # kate: indent-width 2
