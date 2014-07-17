@@ -15,7 +15,7 @@ class BotterModule::Correction < BotterModule
       subst = match_data[1]
       with = match_data[2]
       
-      $log_db.execute("SELECT message, id FROM privmsgs WHERE msg_from = ? AND msg_to = ? AND message NOT LIKE \"s/%\" ORDER BY timestamp DESC LIMIT 1", [event.from, bot.to(event)]) do |row|
+      $log_db.execute("SELECT message, id FROM privmsgs WHERE msg_to = ? ORDER BY timestamp DESC LIMIT 1", [bot.to(event)]) do |row|
         bot.send_message bot.to(event), "#{@config["banner"]} <#{event.from}> #{row[0].gsub(subst, with)}"
       end
     end
