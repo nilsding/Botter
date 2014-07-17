@@ -18,6 +18,7 @@ bot:
       - ddg
       - google
       - youtube
+      - correction
     config:
       ctcp:
         version: true    # Reply to CTCP VERSION
@@ -33,4 +34,6 @@ bot:
         enable_not_found_message: false    # Enable "Video not found" message (which can get quite spammy)
         not_found_str: "Video not found ;_;"
       logger:
-        log_dir: # TODO
+        log_dir: # TODO ???
+      correction:
+        banner: "Correction:"
