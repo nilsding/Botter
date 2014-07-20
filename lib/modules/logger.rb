@@ -13,7 +13,8 @@ class BotterModule::Logger < BotterModule
         timestamp NUMERIC,
         msg_from TEXT,
         msg_to TEXT,
-        message TEXT
+        message TEXT,
+        is_action NUMERIC
       );
     SQL
   end
@@ -21,8 +22,15 @@ class BotterModule::Logger < BotterModule
   ##
   # log PRIVMSGs
   def privmsg(bot, event)
-    $log_db.execute "INSERT INTO privmsgs (timestamp, msg_from, msg_to, message) VALUES (?, ?, ?, ?);",
-                    [Time.new.strftime("%s").to_i, event.from, bot.to(event), event.message]
+    if /^\x01ACTION /.match event.message
+      msg = event.message.gsub /^\x01ACTION |\x01$/, ""
+      is_action = 1
+    else
+      msg = event.message
+      is_action = 0
+    end
+    $log_db.execute "INSERT INTO privmsgs (timestamp, msg_from, msg_to, message, is_action) VALUES (?, ?, ?, ?, ?);",
+                    [Time.new.strftime("%s").to_i, event.from, bot.to(event), msg, is_action]
   end
 end
 
