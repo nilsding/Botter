@@ -1,8 +1,9 @@
 #!/usr/bin/env ruby19
 require "rubygems"
 require "IRC"
+require "httparty"
 
-version = HTTParty.get('https://api.github.com/repos/seatsea/Botter/commits')
+version = HTTParty.get('https://api.github.com/repos/seatsea/Botter/commits', headers: {"User-Agent" => "Mozilla/5.0"})
 body = JSON.parse(response.body)
 version = body["sha"]
 puts version
