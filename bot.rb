@@ -3,10 +3,8 @@ require "rubygems"
 require "IRC"
 require "httparty"
 
-version = HTTParty.get('https://api.github.com/repos/seatsea/Botter/commits', headers: {"User-Agent" => "Mozilla/5.0"})
-body = JSON.parse(response.body)
-version = body["sha"]
-puts version
+HTTParty.get("https://api.github.com/repos/seatsea/Botter/commits", headers: {"User-Agent" => "Mozilla/5.0"}).parsed_response
+puts resp[0]["sha"]
 
 APP_CONFIG = YAML.load_file(File.expand_path("config.yml", File.dirname(__FILE__)))["bot"]
 $:.unshift File.expand_path './lib', File.dirname(__FILE__)
