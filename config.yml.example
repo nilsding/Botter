@@ -37,3 +37,4 @@ bot:
         log_dir: # TODO ???
       correction:
         banner: "Correction:"
+        save_correction: false  # This will modify the in-memory log database
