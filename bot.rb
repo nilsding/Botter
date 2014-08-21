@@ -1,7 +1,16 @@
 #!/usr/bin/env ruby19
 require "rubygems"
 require "IRC"
+require "httparty"
 
+resp = HTTParty.get("https://api.github.com/repos/seatsea/Botter/commits", headers: {"User-Agent" => "Mozilla/5.0"}).parsed_response
+puts resp[0]["sha"]
+ unless "$Id: #{`git rev-parse HEAD`.chomp} $" == "$Id: #{resp [0]["sha"]} $"
+puts "An update is available"
+else
+puts "Up to date"
+end
+	
 APP_CONFIG = YAML.load_file(File.expand_path("config.yml", File.dirname(__FILE__)))["bot"]
 $:.unshift File.expand_path './lib', File.dirname(__FILE__)
 
