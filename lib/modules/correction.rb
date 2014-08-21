@@ -2,7 +2,7 @@ require "bottermodule"
 
 class BotterModule::Correction < BotterModule
   
-  CORRECTION_REGEX = /^s\/([^\/]+)\/([^\/]*)\/?$/
+  CORRECTION_REGEX = /^s\/(.*?)\/([^\/]*)\/?$/
   
   def initialize
     @config = APP_CONFIG["modules"]["config"]["correction"]
