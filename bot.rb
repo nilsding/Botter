@@ -42,7 +42,9 @@ end
 
 IRCEvent.add_callback('privmsg') do |event|
   $modules.each do |mod|
-    mod[:instance].privmsg(bot, event)
+    Thread.new do
+      mod[:instance].privmsg(bot, event)
+    end
   end
 end
 
