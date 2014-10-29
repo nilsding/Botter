@@ -19,6 +19,7 @@ bot:
       - google
       - youtube
       - correction
+#      - nickserv
     config:
       ctcp:
         version: true    # Reply to CTCP VERSION
@@ -38,3 +39,6 @@ bot:
       correction:
         banner: "Correction:"
         save_correction: false  # This will modify the in-memory log database
+      nickserv:
+        command: "!auth"
+        password: "foobar"
