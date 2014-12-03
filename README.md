@@ -9,7 +9,6 @@ IRC servers.
 * DuckDuckGo ZeroClickInfo (e.g. `!d cats`)
 * Display YouTube video data when a link is posted to a channel
 * Extensible
-* Program is devided into modules that can be enabled and disabled individualy. 
 
 
 ## Requirements
