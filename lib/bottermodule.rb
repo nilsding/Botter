@@ -10,16 +10,18 @@ class BotterModule
   attr_reader :description
   attr_reader :authors
   attr_reader :config
+  attr_reader :dependencies
 
   def initialize
     @authors = []
     @display_name = 'untitled'
     @description = 'This module does not have a description'
     @config = {}
+    @dependencies = []
   end
 
   def create(name, &block)
-    raise "Module #{name} is already loaded" if $modules.include? name
+    raise "Module #{name} is already loaded" if $modules[:loaded].include? name
     @name = name
     @config = APP_CONFIG['modules']['config'][name]
     instance_eval &block
@@ -34,7 +36,20 @@ class BotterModule
 
   # Sets the description.
   def description(desc)
-    @description = desc
+    @description = desc unless desc.empty?
+  end
+
+  # Specifies modules a specific module depends on
+  def depends(*args)
+    args.each do |arg|
+      begin
+        unless $modules[:loaded].include? arg.to_s
+          require "modules/#{arg.to_s}"
+        end
+      rescue => e
+        puts "-- failed to load one or more dependencies of #{name}: #{e.message}"
+      end
+    end
   end
 
   # Sets the description.
