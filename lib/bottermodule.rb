@@ -58,7 +58,7 @@ class BotterModule
   end
   alias author authors
 
-  # overwriting method_missing for callbacks (starting with 'on_')
+  # overriding method_missing for callbacks (starting with 'on_')
   def method_missing(name, *args, &block)
     n = name.to_s
     super unless n.start_with? 'on_'

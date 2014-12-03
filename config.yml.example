@@ -4,15 +4,12 @@ bot:
 
   nickname: "botter"
   realname: "Botter IRC Bot"
-
-  channels:
-    - "#lobby"
-    - "#test"
   
   verbose: true
   
   modules:
     enabled:
+      - autojoin
       - logger
       - ctcp
       - ddg
@@ -21,6 +18,12 @@ bot:
       - correction
 #      - nickserv
     config:
+      autojoin:
+        channels:
+          - "#lobby"
+          - "#test"
+        rejoin_on_kick: true
+        rejoin_wait: 2   # wait time in seconds
       ctcp:
         version: true    # Reply to CTCP VERSION
       ddg:
