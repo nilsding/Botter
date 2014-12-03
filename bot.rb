@@ -15,15 +15,14 @@ rescue => e
 end
 	
 APP_CONFIG = YAML.load_file(File.expand_path("config.yml", File.dirname(__FILE__)))["bot"]
+
 $LOAD_PATH.unshift File.expand_path './lib', File.dirname(__FILE__)
+require "bottermodule"
 
 bot = IRC.new(APP_CONFIG["nickname"], APP_CONFIG["server"], APP_CONFIG["port"], APP_CONFIG["realname"])
 
-$modules = []
-
 APP_CONFIG["modules"]["enabled"].each do |mod|
   require "modules/#{mod}"
-  puts "--> #{$modules[-1][:name]} by #{$modules[-1][:authors].join ", "}" if APP_CONFIG["verbose"]
 end
 
 ##
@@ -44,10 +43,8 @@ IRCEvent.add_callback('endofmotd') do |event|
 end
 
 IRCEvent.add_callback('privmsg') do |event|
-  $modules.each do |mod|
-    Thread.new do
-      mod[:instance].privmsg(bot, event)
-    end
+  $modules[:callbacks][:privmsg].each do |mod|
+    Thread.new { mod.call(bot, event) }
   end
 end
 
