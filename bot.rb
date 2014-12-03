@@ -1,18 +1,21 @@
-#!/usr/bin/env ruby19
+#!/usr/bin/env ruby
 require "rubygems"
 require "IRC"
 require "httparty"
 
-resp = HTTParty.get("https://api.github.com/repos/seatsea/Botter/commits", headers: {"User-Agent" => "Mozilla/5.0"}).parsed_response
-puts resp[0]["sha"]
- unless "$Id: #{`git rev-parse HEAD`.chomp} $" == "$Id: #{resp [0]["sha"]} $"
-puts "An update is available"
-else
-puts "Up to date"
+begin
+  resp = HTTParty.get('https://api.github.com/repos/Leafcat/Botter/commits', headers: {'User-Agent' => 'Mozilla/5.0'}).parsed_response
+  if `git rev-parse HEAD`.chomp == resp[0]["sha"]
+    puts "-- Up to date"
+  else
+    puts "-- An update is available, please run 'git pull' "
+  end
+rescue => e
+  puts "Could not check for update #{e}"
 end
 	
 APP_CONFIG = YAML.load_file(File.expand_path("config.yml", File.dirname(__FILE__)))["bot"]
-$:.unshift File.expand_path './lib', File.dirname(__FILE__)
+$LOAD_PATH.unshift File.expand_path './lib', File.dirname(__FILE__)
 
 bot = IRC.new(APP_CONFIG["nickname"], APP_CONFIG["server"], APP_CONFIG["port"], APP_CONFIG["realname"])
 
