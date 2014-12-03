@@ -1,16 +1,12 @@
-require "bottermodule"
-
 require "google-search"
 
-class BotterModule::GoogleSearch < BotterModule
+BotterModule.new.create 'google' do
+
+  display_name 'Google Search'
+  description "For when you don't want to open a web browser..."
+  authors 'seatsea', 'nilsding'
   
-  def initialize
-    @config = APP_CONFIG["modules"]["config"]["google"]
-  end
-  
-  ##
-  # PRIVMSG event for Google Search
-  def privmsg(bot, event)
+  on_privmsg do |bot, event|
     if /^#{@config["command"]} /.match event.message
       search_args = event.message.sub /^#{@config["command"]} /, ""
       bot.send_message bot.to(event), @config["searching_for_str"].gsub(/%arg/i, search_args)
@@ -23,11 +19,3 @@ class BotterModule::GoogleSearch < BotterModule
     end
   end
 end
-
-$modules << {
-  name: "Google Search",
-  authors: ["seatsea", "nilsding"],
-  instance: (BotterModule::GoogleSearch).new
-}
-
-# kate: indent-width 2

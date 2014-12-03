@@ -1,17 +1,14 @@
-require "bottermodule"
+BotterModule.new.create 'ctcp' do
 
-class BotterModule::Ctcp < BotterModule
-  
-  def initialize
-    @config = APP_CONFIG["modules"]["config"]["ctcp"]
-  end
-  
-  ##
+  display_name 'CTCP'
+  description 'Responds to CTCP events'
+  author 'nilsding'
+
   # PRIVMSG event for CTCP
   # CTCP requests and replies are sent through PRIVMSGs, but they have
   # \x01 at the beginning and at the end of the message content.
   # See also: http://www.irchelp.org/irchelp/rfc/ctcpspec.html
-  def privmsg(bot, event)
+  on_privmsg do |bot, event|
     if /^\x01/.match event.message
       message = event.message.gsub /^\x01|\x01$/, '' # strip \x01 from the beginning and the end of the message
       ctcp = message.match /^([A-Z])+(.*)?/
@@ -25,17 +22,9 @@ class BotterModule::Ctcp < BotterModule
           rescue
             version = ""
           end
-          bot.send_ctcpreply(event.from, 'VERSION', "Botter #{version}by seatsea and nilsding - https://github.com/seatsea/Botter")
+          bot.send_ctcpreply(event.from, 'VERSION', "Botter #{version}by Leafcat - https://github.com/Leafcat/Botter")
         end
       end
     end
   end
 end
-
-$modules << {
-  name: "CTCP",
-  authors: ["nilsding"],
-  instance: (BotterModule::Ctcp).new
-}
-
-# kate: indent-width 2

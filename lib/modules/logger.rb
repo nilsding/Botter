@@ -1,27 +1,24 @@
-require "bottermodule"
-
 require "sqlite3"
 
-class BotterModule::Logger < BotterModule
+BotterModule.new.create 'logger' do
+
+  display_name 'Logger'
+  description 'Provides simple logging facilities.'
+  author 'nilsding'
+
+  $log_db = SQLite3::Database.new ":memory:"
+  $log_db.execute <<-SQL
+    CREATE TABLE IF NOT EXISTS privmsgs (
+      id INTEGER PRIMARY KEY,
+      timestamp NUMERIC,
+      msg_from TEXT,
+      msg_to TEXT,
+      message TEXT,
+      is_action NUMERIC
+    );
+  SQL
   
-  def initialize
-    @config = APP_CONFIG["modules"]["config"]["logger"]
-    $log_db = SQLite3::Database.new ":memory:"
-    $log_db.execute <<-SQL
-      CREATE TABLE IF NOT EXISTS privmsgs (
-        id INTEGER PRIMARY KEY,
-        timestamp NUMERIC,
-        msg_from TEXT,
-        msg_to TEXT,
-        message TEXT,
-        is_action NUMERIC
-      );
-    SQL
-  end
-  
-  ##
-  # log PRIVMSGs
-  def privmsg(bot, event)
+  on_privmsg do |bot, event|
     if /^\x01ACTION /.match event.message
       msg = event.message.gsub /^\x01ACTION |\x01$/, ""
       is_action = 1
@@ -33,11 +30,3 @@ class BotterModule::Logger < BotterModule
                     [Time.new.strftime("%s").to_i, event.from, bot.to(event), msg, is_action]
   end
 end
-
-$modules << {
-  name: "Logger",
-  authors: ["nilsding"],
-  instance: (BotterModule::Logger).new
-}
-
-# kate: indent-width 2

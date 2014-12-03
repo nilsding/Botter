@@ -1,21 +1,13 @@
-require "bottermodule"
+BotterModule.new.create 'nickserv' do
 
-class BotterModule::NickServ < BotterModule
+  display_name 'NickServ'
+  description 'Identifies with NickServ'
+  author 'MeikoDis'
 
-  def initialize
-    @config = APP_CONFIG["modules"]["config"]["nickserv"]
-  end
-
-  def privmsg(bot, event)
+  on_privmsg do |bot, event|
     if /^#{@config["command"]}/.match event.message
       bot.send_message("nickserv", "identify #{@config["password"]}")
       puts "nickserv identify sent."
     end
   end
 end
-
-$modules << {
-  name: "NickServ",
-  authors: ["MeikoDis"],
-  instance: (BotterModule::NickServ).new
-}    

@@ -1,21 +1,17 @@
-require "bottermodule"
-
 require "duck_duck_go"
 
-class BotterModule::DDGZeroClickInfo < BotterModule
-  
-  def initialize
-    @ddg = DuckDuckGo.new
-    @config = APP_CONFIG["modules"]["config"]["ddg"]
-  end
-  
-  ##
-  # PRIVMSG event for DuckDuckGo ZeroClickInfo
-  def privmsg(bot, event)
+BotterModule.new.create 'ddg' do
+
+  display_name 'DuckDuckGo ZeroClickInfo'
+  authors 'seatsea', 'nilsding'
+
+  ddg = DuckDuckGo.new
+
+  on_privmsg do |bot, event|
     if /^#{@config["command"]} /.match event.message
       search_args = event.message.gsub /^#{@config["command"]} /, ""
       bot.send_message bot.to(event), @config["searching_for_str"].gsub(/%arg/i, search_args)
-      zci = @ddg.zeroclickinfo search_args
+      zci = ddg.zeroclickinfo search_args
 
       case zci.type # see https://github.com/andrewrjones/ruby-duck-duck-go/blob/master/lib/duck_duck_go/zero_click_info.rb#L11-L15
       when 'A'
@@ -35,11 +31,3 @@ class BotterModule::DDGZeroClickInfo < BotterModule
     end
   end
 end
-
-$modules << {
-  name: "DuckDuckGo ZeroClickInfo",
-  authors: ["seatsea", "nilsding"],
-  instance: (BotterModule::DDGZeroClickInfo).new
-}
-
-# kate: indent-width 2

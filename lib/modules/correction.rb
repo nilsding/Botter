@@ -1,15 +1,12 @@
-require "bottermodule"
+BotterModule.new.create 'correction' do
 
-class BotterModule::Correction < BotterModule
-  
+  display_name 'Correction'
+  author 'nilsding'
+  depends 'logger'
+
   CORRECTION_REGEX = /^s\/(.*?)\/([^\/]*)\/?$/
-  
-  def initialize
-    @config = APP_CONFIG["modules"]["config"]["correction"]
-    raise "Please load the `logger' module first!" if $log_db.nil?
-  end
-  
-  def privmsg(bot, event)
+
+  on_privmsg do |bot, event|
     match_data = CORRECTION_REGEX.match event.message
     if match_data
       subst = match_data[1]
@@ -32,11 +29,3 @@ class BotterModule::Correction < BotterModule
     end
   end
 end
-
-$modules << {
-  name: "Correction",
-  authors: ["nilsding"],
-  instance: (BotterModule::Correction).new
-}
-
-# kate: indent-width 2

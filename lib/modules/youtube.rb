@@ -61,5 +61,3 @@ BotterModule.new.create 'youtube' do
     retdict
   end
 end
-
-# kate: indent-width 2
