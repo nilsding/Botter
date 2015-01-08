@@ -8,6 +8,7 @@ IRC servers.
 * Google search (e.g. `!g apples`)
 * DuckDuckGo ZeroClickInfo (e.g. `!d cats`)
 * Display YouTube video data when a link is posted to a channel
+* Resend a manually corrected message
 * Extensible
 
 
