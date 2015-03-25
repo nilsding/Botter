@@ -16,6 +16,7 @@ bot:
       - google
       - youtube
       - correction
+      - twitter
 #      - nickserv
     config:
       autojoin:
@@ -45,3 +46,12 @@ bot:
       nickserv:
         command: "!auth"
         password: "foobar"
+      twitter:
+        banner: "[\x02\x0312Twitter\x0f]"
+        # You can get the Twitter API keys on https://apps.twitter.com/
+        consumer_key: ""
+        consumer_secret: ""
+        access_token: ""
+        access_token_secret: ""
+        tweet_enabled: true        # Enable tweeting using the !tweet command
+        tweet_command: "!tweet"
