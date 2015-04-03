@@ -10,6 +10,7 @@ BotterModule.new.create 'correction' do
     match_data = CORRECTION_REGEX.match event.message
     if match_data
       subst = match_data[1]
+      next if subst.empty?
       with = match_data[2]
       
       $log_db.execute("SELECT message, msg_from, is_action, id FROM privmsgs WHERE msg_to = ? AND message LIKE ? AND message NOT LIKE \"s/%\" ORDER BY timestamp DESC LIMIT 1", [bot.to(event), "%#{subst}%"]) do |row|
