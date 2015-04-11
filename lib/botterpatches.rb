@@ -33,3 +33,14 @@ class IRCEvent
     end
   end
 end
+
+
+# Ruby-IRC: lib/IRC.rb
+class IRC
+  def send_message(to, message)
+    message.scan /.{1,400}/ do |msg|
+      IRCConnection.send_to_server("privmsg #{to} :#{msg}")
+    end
+  end
+end
+
