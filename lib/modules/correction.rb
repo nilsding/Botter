@@ -15,6 +15,7 @@ BotterModule.new.create 'correction' do
       
       $log_db.execute("SELECT message, msg_from, is_action, id FROM privmsgs WHERE msg_to = ? AND message LIKE ? AND message NOT LIKE \"s/%\" ORDER BY timestamp DESC LIMIT 1", [bot.to(event), "%#{subst}%"]) do |row|
         modified = row[0].gsub(subst, with)
+        next if modified.length > @config["max_length"]
         id = row[3]
         if row[2] == 0
           msg = "<#{row[1]}> #{modified}"

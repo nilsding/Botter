@@ -43,6 +43,7 @@ bot:
       correction:
         banner: "Correction:"
         save_correction: false  # This will modify the in-memory log database
+        max_length: 350
       nickserv:
         command: "!auth"
         password: "foobar"
