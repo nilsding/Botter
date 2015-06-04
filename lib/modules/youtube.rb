@@ -7,12 +7,12 @@ BotterModule.new.create 'youtube' do
   description 'Displays some information about YouTube videos'
   author 'nilsding'
 
-  YOUTUBE_URL_REGEX = /(https?:\/\/)?(www.)?(youtu.be|youtube.com)\/(watch\?v=)?([A-Za-z0-9\-_]+)/
+  YOUTUBE_URL_REGEX = /(?:https?:\/\/)?(?:www.)?(?:youtu.be|youtube.com)\/(?:watch\?v=)?([A-Za-z0-9\-_]+)/
 
   on_privmsg do |bot, event|
     match_data = YOUTUBE_URL_REGEX.match event.message
     if match_data
-      video_id = match_data[5]
+      video_id = match_data[1]
       data = get_data video_id
       
       if data[:success]
@@ -38,20 +38,17 @@ BotterModule.new.create 'youtube' do
       uploader: ""
     }
 
+    # shoutout to google for ruining developers' lives
     begin
-      document = Nokogiri::XML.parse(HTTParty.get("https://gdata.youtube.com/feeds/api/videos/#{video_id}").parsed_response)
+      document = Nokogiri::XML.parse(HTTParty.get("https://youtube.com/watch?v=#{video_id}").parsed_response)
 
       # get the rating
-      rating = document.xpath "//gd:rating"
-      average = rating.attr("average").value.to_f
-      total = rating.attr("numRaters").value.to_i
-      retdict[:rating][:likes] = (total * (average - 1) / 4).round
-      retdict[:rating][:dislikes] = total - retdict[:rating][:likes]
+      retdict[:rating][:likes], retdict[:rating][:dislikes] = document.css('.like-button-renderer .yt-uix-clickcard button:not(.hid) span.yt-uix-button-content').map { |x| x.content.to_i }
 
       # get the views, the title and the uploader's user name
-      retdict[:views] = document.xpath("//yt:statistics").attr("viewCount").value.to_i
-      retdict[:title] = document.xpath("//media:title").children.text
-      retdict[:uploader] = document.xpath("//xmlns:author/xmlns:name").children.text
+      retdict[:views] = document.css('div.watch-view-count').first.content.gsub(/[',. ]/, '').to_i
+      retdict[:title] = document.css('h1.watch-title-container span.watch-title').first.content.strip
+      retdict[:uploader] = document.css('div.yt-user-info a').first.content.strip
 
       retdict[:success] = true
     rescue
