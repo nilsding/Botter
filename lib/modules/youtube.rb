@@ -43,7 +43,7 @@ BotterModule.new.create 'youtube' do
       document = Nokogiri::XML.parse(HTTParty.get("https://youtube.com/watch?v=#{video_id}").parsed_response)
 
       # get the rating
-      retdict[:rating][:likes], retdict[:rating][:dislikes] = document.css('.like-button-renderer .yt-uix-clickcard button:not(.hid) span.yt-uix-button-content').map { |x| x.content.to_i }
+      retdict[:rating][:likes], retdict[:rating][:dislikes] = document.css('.like-button-renderer .yt-uix-clickcard button:not(.hid) span.yt-uix-button-content').map { |x| x.content.gsub(/[',. ]/, '').to_i }
 
       # get the views, the title and the uploader's user name
       retdict[:views] = document.css('div.watch-view-count').first.content.gsub(/[',. ]/, '').to_i
