@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "Ruby-IRC"
+gem "Ruby-IRC", github: 'nilsding/Ruby-IRC'
 gem "duck-duck-go"
 gem "google-search"
 gem "nokogiri"
