@@ -22,6 +22,7 @@ bot:
 #      - pointlesswords
       - help
       - quotes
+      - cardcast
     config:
       autojoin:
         channels:
@@ -74,3 +75,8 @@ bot:
        admins:
          # nickname: "hostname"
          nilsding: "nilsding.org"
+     cardcast:
+       commands:
+         default: "!cc"
+         force: "!!cc"
+       deck: "4W5FN"
