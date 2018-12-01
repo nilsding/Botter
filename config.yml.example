@@ -21,6 +21,7 @@ bot:
 #      - nickserv
 #      - pointlesswords
       - help
+      - quotes
     config:
       autojoin:
         channels:
@@ -64,3 +65,12 @@ bot:
      help:
        command: '!help'
        url: 'https://irc.rrerr.net/wiki/Bots/botter'
+     quotes:
+       database: './data/quotes.db'
+       commands:
+         fetch: "!q"
+         add: "!qa"
+         delete: "!qd"
+       admins:
+         # nickname: "hostname"
+         nilsding: "nilsding.org"
