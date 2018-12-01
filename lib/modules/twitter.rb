@@ -1,4 +1,5 @@
 require 'twitter'
+require 'htmlentities'
 
 BotterModule.new.create 'twitter' do
 
@@ -23,13 +24,14 @@ BotterModule.new.create 'twitter' do
 
         bot.send_message bot.to(event), "#{@config["banner"]} ==> #{tweet.url}"
       rescue => e
-        bot.send_message bot.to(event), "#{@config["banner"]} \x024Error:\x0f #{e.message}"
+        bot.send_message bot.to(event), "#{@config["banner"]} \x034Error:\x0f #{e.message}"
       end
     elsif match_data
+return
       begin
         tweet = @client.status match_data[1].to_i
 
-        bot.send_message bot.to(event), "#{@config["banner"]} \x02@#{tweet.user.screen_name}:\x0f #{tweet.text}"
+        bot.send_message bot.to(event), "#{@config["banner"]} \x02@#{tweet.user.screen_name}:\x0f #{HTMLEntities.new.decode tweet.text.gsub("\n", " ")}"
         bot.send_message bot.to(event), "\x039 #{tweet.retweet_count}\x0f retweets,\x037 #{tweet.favorite_count}\x0f favorites"
       rescue => _e
       end

@@ -19,6 +19,7 @@ BotterModule.new.create 'ddg' do
         bot.send_message bot.to(event), "See #{zci.abstract_url.to_s}"
       when 'D'
         zci.related_topics['_'].each_with_index do |topic, i|
+          break if i >= 10
           bot.send_message bot.to(event), "\x02#{i + 1}.\x02 #{topic.text}" # \x02 - bold text in IRC
         end
       when 'C'
