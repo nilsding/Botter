@@ -19,6 +19,7 @@ bot:
       - correction
       - twitter
 #      - nickserv
+#      - pointlesswords
     config:
       autojoin:
         channels:
@@ -57,3 +58,5 @@ bot:
         access_token_secret: ""
         tweet_enabled: true        # Enable tweeting using the !tweet command
         tweet_command: "!tweet"
+     pointlesswords:
+       command: "!word"
