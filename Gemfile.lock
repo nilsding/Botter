@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/nilsding/Ruby-IRC.git
-  revision: 826ab423e2060a9c01920aa8475374c9eac8970f
+  revision: 0910370428b30000b51e1f37fa4cbcddaa5b1f9b
   specs:
     Ruby-IRC (1.0.14)
 
@@ -19,6 +19,7 @@ GEM
       multipart-post (>= 1.2, < 3)
     google-search (1.0.3)
       json
+    htmlentities (4.3.4)
     http (0.9.8)
       addressable (~> 2.3)
       http-cookie (~> 1.0)
@@ -32,7 +33,7 @@ GEM
       json (~> 1.8)
       multi_xml (>= 0.5.2)
     httpclient (2.6.0.1)
-    json (1.8.3)
+    json (1.8.6)
     memoizable (0.4.2)
       thread_safe (~> 0.3, >= 0.3.1)
     mini_portile (0.6.2)
@@ -71,10 +72,11 @@ DEPENDENCIES
   Ruby-IRC!
   duck-duck-go
   google-search
+  htmlentities
   httparty
   nokogiri
   sqlite3
   twitter
 
 BUNDLED WITH
-   1.10.6
+   1.16.1

@@ -9,6 +9,7 @@ bot:
   
   modules:
     enabled:
+      - setmode
       - autojoin
       - logger
       - ctcp
@@ -18,6 +19,10 @@ bot:
       - correction
       - twitter
 #      - nickserv
+#      - pointlesswords
+      - help
+      - quotes
+      - cardcast
     config:
       autojoin:
         channels:
@@ -56,3 +61,22 @@ bot:
         access_token_secret: ""
         tweet_enabled: true        # Enable tweeting using the !tweet command
         tweet_command: "!tweet"
+     pointlesswords:
+       command: "!word"
+     help:
+       command: '!help'
+       url: 'https://irc.rrerr.net/wiki/Bots/botter'
+     quotes:
+       database: './data/quotes.db'
+       commands:
+         fetch: "!q"
+         add: "!qa"
+         delete: "!qd"
+       admins:
+         # nickname: "hostname"
+         nilsding: "nilsding.org"
+     cardcast:
+       commands:
+         default: "!cc"
+         force: "!!cc"
+       deck: "4W5FN"

@@ -7,3 +7,5 @@ gem "nokogiri"
 gem "httparty"
 gem "sqlite3"
 gem "twitter"
+gem "htmlentities"
+
