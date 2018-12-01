@@ -9,6 +9,7 @@ bot:
   
   modules:
     enabled:
+      - setmode
       - autojoin
       - logger
       - ctcp
